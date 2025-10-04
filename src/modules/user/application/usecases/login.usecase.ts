@@ -3,19 +3,19 @@ import { IUseCase } from 'src/contracts/usecase';
 import { UserRepositoryAbstract } from '../repositories/user.repository';
 import { AuthService } from 'src/modules/auth/auth.service';
 
-export type LoginUserUseCaseInput = { email: string; password: string };
-export type LoginUserUseCaseOutput = { accessToken: string };
+export type LoginUseCaseInput = { email: string; password: string };
+export type LoginUseCaseOutput = { accessToken: string };
 
 @Injectable()
-export class LoginUserUseCase
-  implements IUseCase<LoginUserUseCaseInput, LoginUserUseCaseOutput>
+export class LoginUseCase
+  implements IUseCase<LoginUseCaseInput, LoginUseCaseOutput>
 {
   constructor(
     private authService: AuthService,
     private userRepository: UserRepositoryAbstract,
   ) {}
 
-  async execute(input: LoginUserUseCaseInput): Promise<LoginUserUseCaseOutput> {
+  async execute(input: LoginUseCaseInput): Promise<LoginUseCaseOutput> {
     const user = await this.userRepository.findOneByEmail(input.email);
 
     return this.authService.generateJwt({ id: user.id });
