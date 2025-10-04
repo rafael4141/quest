@@ -1,6 +1,6 @@
 import { Body, Controller } from '@nestjs/common';
-import { CreateUserUseCase } from '../application/create-user.usecase';
-import { LoginUserUseCase } from '../application/login-user.usecase';
+import { CreateUserUseCase } from '../application/usecases/create-user.usecase';
+import { LoginUserUseCase } from '../application/usecases/login-user.usecase';
 
 @Controller('user')
 export class UserController {

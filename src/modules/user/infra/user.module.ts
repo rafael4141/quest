@@ -2,8 +2,8 @@ import { Module } from '@nestjs/common';
 import { UserController } from '../presentation/user.controller';
 import { UserRepositoryAbstract } from '../application/repositories/user.repository';
 import { UserInMemoryRepository } from './repositories/user-in-memory.repository';
-import { CreateUserUseCase } from '../application/create-user.usecase';
-import { LoginUserUseCase } from '../application/login-user.usecase';
+import { CreateUserUseCase } from '../application/usecases/create-user.usecase';
+import { LoginUserUseCase } from '../application/usecases/login-user.usecase';
 
 @Module({
   controllers: [UserController],

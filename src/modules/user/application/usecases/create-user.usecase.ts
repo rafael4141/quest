@@ -1,7 +1,7 @@
 import { Injectable } from '@nestjs/common';
-import { UserRepositoryAbstract } from './repositories/user.repository';
+import { UserRepositoryAbstract } from '../repositories/user.repository';
 import { IUseCase } from 'src/contracts/usecase';
-import { UserEntity } from '../domain/entities/user.entity';
+import { UserEntity } from '../../domain/entities/user.entity';
 
 export type CreateUserUseCaseInput = UserEntity;
 export type CreateUserUseCaseOutput = UserEntity;

@@ -1,6 +1,6 @@
 import { Injectable } from '@nestjs/common';
 import { IUseCase } from 'src/contracts/usecase';
-import { UserRepositoryAbstract } from './repositories/user.repository';
+import { UserRepositoryAbstract } from '../repositories/user.repository';
 
 export type LoginUserUseCaseInput = { email: string; password: string };
 export type LoginUserUseCaseOutput = any;
