@@ -4,8 +4,10 @@ import { UserRepositoryAbstract } from '../application/repositories/user.reposit
 import { UserInMemoryRepository } from './repositories/user-in-memory.repository';
 import { CreateUserUseCase } from '../application/usecases/create-user.usecase';
 import { LoginUserUseCase } from '../application/usecases/login-user.usecase';
+import { AuthModule } from 'src/modules/auth/auth.module';
 
 @Module({
+  imports: [AuthModule],
   controllers: [UserController],
   providers: [
     CreateUserUseCase,

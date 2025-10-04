@@ -6,17 +6,23 @@ import {
 import { UserEntity } from '../../domain/entities/user.entity';
 
 export class UserInMemoryRepository implements UserRepositoryAbstract {
-  private users = new Map<string, UserEntity>();
+  private users: UserEntity[] = [
+    {
+      id: '0',
+      email: 'rafael@email.com',
+      password: 'password',
+    },
+  ];
 
   async create(data: CreateUserInput): Promise<UserEntity> {
     const length = String([this.users.keys()].length);
-    this.users.set(length, data);
+    this.users.push({ ...data, id: length });
 
-    return this.users.get(length)!;
+    return this.users.find((user) => user.id === length)!;
   }
 
   async findOneByEmail(email: string): Promise<UserEntity> {
-    const user = this.users.get(email);
+    const user = this.users.find((user) => user.email === email);
 
     if (!user) throw new UnauthorizedException('User not exists');
 
