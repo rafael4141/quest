@@ -10,7 +10,6 @@ import { PassportGuard } from 'src/shared/guards/passport.guard';
     ConfigModule,
     JwtModule.register({
       global: true,
-      signOptions: { expiresIn: '60s' },
     }),
   ],
   providers: [

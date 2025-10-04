@@ -7,9 +7,10 @@ import { LoginUseCase } from '../application/usecases/login.usecase';
 import { AuthModule } from 'src/modules/auth/auth.module';
 import { HasherServiceAbstract } from '../application/security/hasher.service';
 import { ArgonHasherService } from './security/argon-hasher.service';
+import { QuestModule } from 'src/modules/quest/infra/quest.module';
 
 @Module({
-  imports: [AuthModule],
+  imports: [AuthModule, QuestModule],
   controllers: [UserController],
   providers: [
     RegisterUseCase,

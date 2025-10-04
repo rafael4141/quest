@@ -17,12 +17,14 @@ export interface Requirement {
   type: QuestType;
   target: number;
   entity?: string;
+  questId: string;
 }
 
 export interface Reward {
   type: 'XP' | 'CURRENCY' | 'ITEM';
   amount: number;
   itemId?: string;
+  questId: string;
 }
 
 export interface QuestDefinition {

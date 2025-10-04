@@ -5,12 +5,14 @@ import { LoginDto } from './dtos/login.dto';
 import type { Response } from 'express';
 import { Public } from 'src/shared/guards/passport.guard';
 import { RegisterDto } from './dtos/register.dto';
+import { QuestService } from 'src/modules/quest/presentation/quest.service';
 
 @Controller('user')
 export class UserController {
   constructor(
     private readonly registerUseCase: RegisterUseCase,
     private readonly loginUseCase: LoginUseCase,
+    private readonly questService: QuestService,
   ) {}
 
   @Public()
@@ -22,9 +24,11 @@ export class UserController {
   @Public()
   @Post('login')
   async login(@Body() body: LoginDto, @Res() res: Response) {
-    const tokens = await this.loginUseCase.execute(body);
+    const result = await this.loginUseCase.execute(body);
 
-    res.cookie('access_token', tokens.accessToken, {
+    await this.questService.loginEvent(result.userId);
+
+    res.cookie('access_token', result.accessToken, {
       httpOnly: true,
       secure: true,
     });

@@ -1,19 +1,21 @@
 import { IUseCase } from 'src/contracts/usecase';
 import { QuestEvent } from '../events/quest.event';
-import { QuestInstanceRepositoryAbstract } from '../repositories/quest.repositoy';
+import { QuestRepositoryAbstract } from '../repositories/quest.repositoy';
 import {
   QuestInstance,
   QuestStatus,
   Requirement,
 } from '../../domain/entities/quest.entity';
+import { Injectable } from '@nestjs/common';
 
 export type QuestEngineUseCaseInput = QuestEvent;
 export type QuestEngineUseCaseOutput = void;
 
+@Injectable()
 export class QuestEngineUseCase
   implements IUseCase<QuestEngineUseCaseInput, QuestEngineUseCaseOutput>
 {
-  constructor(private questRepository: QuestInstanceRepositoryAbstract) {}
+  constructor(private questRepository: QuestRepositoryAbstract) {}
 
   async execute(
     event: QuestEngineUseCaseInput,

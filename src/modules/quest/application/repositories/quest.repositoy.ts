@@ -1,6 +1,6 @@
 import { QuestInstance, Requirement } from '../../domain/entities/quest.entity';
 
-export abstract class QuestInstanceRepositoryAbstract {
+export abstract class QuestRepositoryAbstract {
   abstract findActiveByUserId(
     userId: string,
   ): Promise<(QuestInstance & { requirements: Requirement[] })[]>;

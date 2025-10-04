@@ -14,7 +14,7 @@ export class QuestBullProcessor {
       return true;
     } catch (e) {
       console.log(e);
-      return false;
+      throw new Error(e);
     }
   }
 }

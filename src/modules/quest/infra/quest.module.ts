@@ -6,6 +6,10 @@ import { QuestBullProducer } from './queues/quest-bull.event';
 import { BullModule } from '@nestjs/bull';
 import { ConfigModule, ConfigService } from '@nestjs/config';
 import { QUEST_QUEUE } from './queues/queues';
+import { QuestBullProcessor } from './queues/quest-bull.processor';
+import { QuestEngineUseCase } from '../application/usecases/quest-engine.usecase';
+import { QuestRepositoryAbstract } from '../application/repositories/quest.repositoy';
+import { QuestInMemoryRepository } from './repositories/quest-in-memory.repository';
 
 @Module({
   imports: [
@@ -22,7 +26,11 @@ import { QUEST_QUEUE } from './queues/queues';
   controllers: [QuestController],
   providers: [
     QuestService,
+    QuestEngineUseCase,
     { provide: QuestProducerAbstract, useClass: QuestBullProducer },
+    QuestBullProcessor,
+    { provide: QuestRepositoryAbstract, useClass: QuestInMemoryRepository },
   ],
+  exports: [QuestService],
 })
 export class QuestModule {}

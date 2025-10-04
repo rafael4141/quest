@@ -4,7 +4,7 @@ import { UserRepositoryAbstract } from '../repositories/user.repository';
 import { AuthService } from 'src/modules/auth/auth.service';
 
 export type LoginUseCaseInput = { email: string; password: string };
-export type LoginUseCaseOutput = { accessToken: string };
+export type LoginUseCaseOutput = { userId: string; accessToken: string };
 
 @Injectable()
 export class LoginUseCase
@@ -18,6 +18,8 @@ export class LoginUseCase
   async execute(input: LoginUseCaseInput): Promise<LoginUseCaseOutput> {
     const user = await this.userRepository.findOneByEmail(input.email);
 
-    return this.authService.generateJwt({ id: user.id });
+    const tokens = await this.authService.generateJwt({ id: user.id });
+
+    return { ...tokens, userId: user.id };
   }
 }
