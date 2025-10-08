@@ -8,7 +8,7 @@ import { ConfigModule, ConfigService } from '@nestjs/config';
 import { QUEST_QUEUE } from './queues/queues';
 import { QuestBullProcessor } from './queues/quest-bull.processor';
 import { QuestEngineUseCase } from '../application/usecases/quest-engine.usecase';
-import { QuestRepositoryAbstract } from '../application/repositories/quest.repositoy';
+import { QuestRepositoryAbstract } from '../application/repositories/quest.repository';
 import { QuestInMemoryRepository } from './repositories/quest-in-memory.repository';
 
 @Module({

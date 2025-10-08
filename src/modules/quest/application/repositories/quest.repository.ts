@@ -12,4 +12,5 @@ export abstract class QuestRepositoryAbstract {
   abstract findInstances(): Promise<QuestInstance[]>;
   abstract findQuestsAvailables(): Promise<QuestDefinition[]>;
   abstract createInstance(input: Omit<QuestInstance, 'id'>): Promise<void>;
+  abstract findInstancesByUserId(userId: string): Promise<QuestInstance[]>;
 }

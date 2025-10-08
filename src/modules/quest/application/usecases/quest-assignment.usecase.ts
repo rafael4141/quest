@@ -1,6 +1,6 @@
 import { Injectable } from '@nestjs/common';
 import { IUseCase } from 'src/contracts/usecase';
-import { QuestRepositoryAbstract } from '../repositories/quest.repositoy';
+import { QuestRepositoryAbstract } from '../repositories/quest.repository';
 import { QuestStatus } from '../../domain/entities/quest.entity';
 
 export type QuestAssignmentUseCaseInput = { userId: string };

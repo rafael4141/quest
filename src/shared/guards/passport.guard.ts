@@ -24,6 +24,7 @@ export class PassportGuard implements CanActivate {
       context.getHandler(),
       context.getClass(),
     ]);
+
     if (isPublic) {
       return true;
     }
@@ -50,9 +51,9 @@ export class PassportGuard implements CanActivate {
 }
 
 export const CurrentUser = createParamDecorator(
-  (ctx: ExecutionContext): { id: string } => {
+  (_: unknown, ctx: ExecutionContext): { id: string } => {
     const request: Request = ctx.switchToHttp().getRequest();
-    const user: { id: string } = request.get('user') as unknown as {
+    const user: { id: string } = request['user'] as unknown as {
       id: string;
     };
 

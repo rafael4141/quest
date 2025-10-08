@@ -1,6 +1,6 @@
 import { IUseCase } from 'src/contracts/usecase';
 import { QuestEvent } from '../events/quest.event';
-import { QuestRepositoryAbstract } from '../repositories/quest.repositoy';
+import { QuestRepositoryAbstract } from '../repositories/quest.repository';
 import {
   QuestInstance,
   QuestStatus,
@@ -56,8 +56,6 @@ export class QuestEngineUseCase
     event: QuestEvent,
   ): QuestInstance {
     if (quest.status !== QuestStatus.IN_PROGRESS) return quest;
-
-    console.log(quest);
 
     for (const req of quest.requirements) {
       if (req.type !== event.type) continue;

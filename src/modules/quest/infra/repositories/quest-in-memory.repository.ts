@@ -1,4 +1,4 @@
-import { QuestRepositoryAbstract } from '../../application/repositories/quest.repositoy';
+import { QuestRepositoryAbstract } from '../../application/repositories/quest.repository';
 import {
   QuestDefinition,
   QuestInstance,
@@ -66,5 +66,9 @@ export class QuestInMemoryRepository implements QuestRepositoryAbstract {
 
   async findQuestsAvailables(): Promise<QuestDefinition[]> {
     return this.questDefinitions;
+  }
+
+  async findInstancesByUserId(userId: string): Promise<QuestInstance[]> {
+    return this.questInstances.filter((q) => q.playerId === userId);
   }
 }
