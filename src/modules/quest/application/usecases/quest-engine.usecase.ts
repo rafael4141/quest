@@ -20,14 +20,35 @@ export class QuestEngineUseCase
   async execute(
     event: QuestEngineUseCaseInput,
   ): Promise<QuestEngineUseCaseOutput> {
-    const activeQuests = await this.questRepository.findActiveByUserId(
+    const questsAvailables = await this.questRepository.findQuestsAvailables();
+
+    let activeQuests = await this.questRepository.findActiveByUserId(
       event.userId,
     );
+
+    for (const quest of questsAvailables) {
+      const hasUserThisQuest = activeQuests.find((q) => q.questId === quest.id);
+      if (hasUserThisQuest) continue;
+      await this.createQuestInstance(event.userId, quest.id);
+    }
+
+    // REFATORAR ISSO AQUI PELO AMOR DE DEUS
+    activeQuests = await this.questRepository.findActiveByUserId(event.userId);
 
     for (const quest of activeQuests) {
       const updateQuestProgress = this.updateQuestProgress(quest, event);
       await this.questRepository.updateQuestProgress(updateQuestProgress);
     }
+  }
+
+  async createQuestInstance(userId: string, questId: string) {
+    await this.questRepository.createInstance({
+      playerId: userId,
+      progress: {},
+      questId,
+      startedAt: new Date(),
+      status: QuestStatus.IN_PROGRESS,
+    });
   }
 
   updateQuestProgress(
@@ -36,12 +57,19 @@ export class QuestEngineUseCase
   ): QuestInstance {
     if (quest.status !== QuestStatus.IN_PROGRESS) return quest;
 
-    for (const reqId in quest.progress) {
-      const requirement = quest.requirements.find((r) => r.id === reqId)!;
+    console.log(quest);
 
-      if (requirement.type === event.type) {
-        quest.progress[reqId] += 1;
+    for (const req of quest.requirements) {
+      if (req.type !== event.type) continue;
+
+      let progress = quest.progress[req.id];
+
+      if (!progress) {
+        quest.progress[req.id] = 1;
+        continue;
       }
+
+      progress += 1;
     }
 
     const completed = this.isQuestComplete(quest);

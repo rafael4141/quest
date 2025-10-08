@@ -33,6 +33,8 @@ export interface QuestDefinition {
   description: string;
   requirements: Requirement[];
   rewards: Reward[];
+  availableFrom: Date;
+  availableTo: Date;
 }
 
 export interface QuestInstance {
