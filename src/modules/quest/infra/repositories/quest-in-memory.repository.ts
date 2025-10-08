@@ -31,7 +31,7 @@ export class QuestInMemoryRepository implements QuestRepositoryAbstract {
     userId: string,
   ): Promise<(QuestInstance & { requirements: Requirement[] })[]> {
     const userQuests = this.questInstances
-      .filter((instance) => instance.playerId === userId)
+      .filter((instance) => instance.userId === userId)
       .map((instance) => {
         const requirements = this.questDefinitions.find(
           (definition) => definition.id === instance.questId,
@@ -69,6 +69,6 @@ export class QuestInMemoryRepository implements QuestRepositoryAbstract {
   }
 
   async findInstancesByUserId(userId: string): Promise<QuestInstance[]> {
-    return this.questInstances.filter((q) => q.playerId === userId);
+    return this.questInstances.filter((q) => q.userId === userId);
   }
 }

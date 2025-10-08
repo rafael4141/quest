@@ -26,7 +26,7 @@ export class QuestAssignmentUseCase
 
     for (const quest of newQuests) {
       await this.questRepository.createInstance({
-        playerId: input.userId,
+        userId: input.userId,
         questId: quest.id,
         status: QuestStatus.IN_PROGRESS,
         progress: {},

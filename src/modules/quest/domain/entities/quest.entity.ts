@@ -39,7 +39,7 @@ export interface QuestDefinition {
 
 export interface QuestInstance {
   id: string;
-  playerId: string;
+  userId: string;
   questId: string;
   status: QuestStatus;
   progress: Record<string, number>;

@@ -43,7 +43,7 @@ export class QuestEngineUseCase
 
   async createQuestInstance(userId: string, questId: string) {
     await this.questRepository.createInstance({
-      playerId: userId,
+      userId: userId,
       progress: {},
       questId,
       startedAt: new Date(),
